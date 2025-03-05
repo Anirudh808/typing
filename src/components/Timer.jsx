@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 
-const Timer = ({ timeLeft, setTimeLeft }) => {
+const Timer = ({ timeLeft, setTimeLeft, hasStarted }) => {
   useEffect(() => {
     if (timeLeft === 0) return;
 
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
+    if (hasStarted) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [timeLeft, setTimeLeft]);
+      return () => clearInterval(timer);
+    }
+  }, [timeLeft, setTimeLeft, hasStarted]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
